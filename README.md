@@ -49,10 +49,6 @@ import { PersistGate } from 'redux-persist/es/integration/react'
 
 npm i @reduxjs/toolkit
 
----
-
 npm install redux
-
----
 
 npm install @redux-devtools/extension
