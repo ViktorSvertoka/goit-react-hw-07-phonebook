@@ -54,3 +54,9 @@ npm install redux
 npm install @redux-devtools/extension
 
 npm i axios
+
+---
+
+URL
+
+https://649496f90da866a9536803ee.mockapi.io
