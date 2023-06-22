@@ -1,22 +1,19 @@
-// Импорт необходимых зависимостей из библиотеки 'react-redux' и других модулей
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectContacts } from 'redux/selectors'; // Импорт селектора selectContacts из файла 'redux/selectors'
-import { fetchContacts } from '../../redux/operations'; // Импорт асинхронного Thunk-действия fetchContacts из файла '../../redux/operations'
-
-// Импорт стилей и компонентов
+import { selectContacts } from 'redux/selectors';
+import { fetchContacts } from '../../redux/operations';
 import { Container, Title, SubTitle, Wrapper } from './App.styled';
 import ContactForm from '../ContactForm/ContactForm';
 import ContactList from '../ContactList/ContactList';
 import Filter from '../Filter/Filter';
 
 const App = () => {
-  // Использование селектора selectContacts для получения списка контактов из Redux-хранилища
+  // Використання селектора selectContacts для отримання списку контактів з Redux-сховища
   const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Запуск асинхронного Thunk-действия fetchContacts при монтировании компонента
+    // Запуск асинхронної Thunk-дії fetchContacts при монтуванні компонента
     dispatch(fetchContacts());
   }, [dispatch]);
 
@@ -26,14 +23,14 @@ const App = () => {
       <ContactForm />
       <SubTitle>Contacts</SubTitle>
       {contacts.length > 0 ? (
-        // Если есть контакты, показывается компонент фильтрации
+        // Якщо є контакти, показується компонент фільтрації
         <Filter />
       ) : (
-        // Если нет контактов, выводится сообщение об отсутствии контактов
+        // Якщо немає контактів, виводиться повідомлення про відсутність контактів
         <Wrapper>Your phonebook is empty. Add first contact!</Wrapper>
       )}
       {contacts.length > 0 && (
-        // Если есть контакты, показывается компонент списка контактов
+        // Якщо є контакти, показується компонент списку контактів
         <ContactList />
       )}
     </Container>
