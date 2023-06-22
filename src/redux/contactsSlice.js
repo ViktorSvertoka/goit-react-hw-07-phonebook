@@ -1,56 +1,55 @@
-// Импорт функций createSlice и isAnyOf из библиотеки '@reduxjs/toolkit'
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-// Импорт асинхронных Thunk-действий fetchContacts, addContacts, deleteContacts из файла './operations'
+// Імпорт асинхронних Thunk-дій fetchContacts, addContacts, deleteContacts з файлу './operations'
 import { fetchContacts, addContacts, deleteContacts } from './operations';
 
-// Определение массива extraActions, содержащего асинхронные Thunk-действия
+// Визначення масиву extraActions, що містить асинхронні Thunk-дії
 const extraActions = [fetchContacts, addContacts, deleteContacts];
 
-// Определение функции getActions, которая возвращает условие isAnyOf для указанного типа действия
+// Визначення функції getActions, яка повертає умову isAnyOf для зазначеного типу дії
 const getActions = type => isAnyOf(...extraActions.map(action => action[type]));
 
-// Начальное состояние для slice contactsSlice
+// Початковий стан для slice contactsSlice
 const initialState = { items: [], isLoading: false, error: null };
 
-// Создание slice для управления контактами
+// Створення slice для керування контактами
 const contactsSlice = createSlice({
-  name: 'contacts', // Уникальное имя для slice
-  initialState, // Начальное состояние slice
+  name: 'contacts', // Унікальне ім'я для slice
+  initialState, // Початковий стан slice
   extraReducers: builder =>
     builder
       .addCase(fetchContacts.fulfilled, (state, action) => {
-        // Обработка успешного выполнения fetchContacts
-        state.items = action.payload; // Обновление списка контактов в состоянии
+        // Обробка успішного виконання fetchContacts
+        state.items = action.payload; // Оновлення списку контактів у стані
       })
       .addCase(addContacts.fulfilled, (state, action) => {
-        // Обработка успешного выполнения addContacts
-        state.items.unshift(action.payload); // Добавление нового контакта в начало списка контактов в состоянии
+        // Обробка успішного виконання addContacts
+        state.items.unshift(action.payload); // Додавання нового контакту на початок списку контактів може
       })
       .addCase(deleteContacts.fulfilled, (state, action) => {
-        // Обработка успешного выполнения deleteContacts
+        // Обробка успішного виконання deleteContacts
         const index = state.items.findIndex(
           contact => contact.id === action.payload.id
         );
-        state.items.splice(index, 1); // Удаление контакта из списка контактов в состоянии
+        state.items.splice(index, 1); // Видалення контакту зі списку контактів
       })
       .addMatcher(getActions('pending'), state => {
-        // Обработка действий со статусом 'pending' (ожидание)
-        state.isLoading = true; // Установка флага isLoading в состоянии
+        // Обробка дій зі статусом 'pending' очікування
+        state.isLoading = true; // Установка прапора isLoading true
       })
       .addMatcher(getActions('rejected'), (state, action) => {
-        // Обработка действий со статусом 'rejected' (отклонено)
-        state.isLoading = false; // Сброс флага isLoading в состоянии
-        state.error = action.payload; // Установка сообщения об ошибке в состоянии
+        // Обробка дій зі статусом 'rejected' відхилено
+        state.isLoading = false; // Скидання прапора isLoading false
+        state.error = action.payload; // Встановлення повідомлення про помилку
       })
       .addMatcher(getActions('fulfilled'), state => {
-        // Обработка действий со статусом 'fulfilled' (выполнено)
-        state.isLoading = false; // Сброс флага isLoading в состоянии
-        state.error = null; // Сброс сообщения об ошибке в состоянии
+        // Обробка дій зі статусом 'fulfilled' виконано
+        state.isLoading = false; // Скидання прапора isLoading false
+        state.error = null; // Скидання повідомлення про помилку null
       }),
 });
 
-// Экспорт действий addContact и deleteContact из slice contactsSlice
+// Експорт дій addContact і deleteContact з slice contactsSlice
 export const { addContact, deleteContact } = contactsSlice.actions;
 
-// Экспорт редуктора (reducer) contactsReducer из slice contactsSlice
+// Експорт редуктора (reducer) contactsReducer з slice contactsSlice
 export const contactsReducer = contactsSlice.reducer;
