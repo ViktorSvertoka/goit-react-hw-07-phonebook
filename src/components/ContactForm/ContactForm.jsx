@@ -1,14 +1,12 @@
-// Импорт необходимых зависимостей из библиотеки 'react' и других модулей
 import { useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 import { Form, Label, Button, Input } from './ContactForm.styled';
 import { ReactComponent as AddIcon } from '../icons/add.svg';
-
 import { useSelector, useDispatch } from 'react-redux';
-import { selectContacts } from 'redux/selectors'; // Импорт селектора selectContacts из файла 'redux/selectors'
-import { addContacts } from '../../redux/operations'; // Импорт асинхронного Thunk-действия addContacts из файла '../../redux/operations'
+import { selectContacts } from 'redux/selectors';
+import { addContacts } from '../../redux/operations';
 
-// Генерация уникальных идентификаторов для полей формы.
+//Генерація унікальних ідентифікаторів для полів форми.
 const nameInputId = nanoid();
 const numberInputId = nanoid();
 
@@ -19,7 +17,7 @@ const ContactForm = () => {
   const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
-  // Обработка отправки формы.
+  // Обробка відправлення форми.
   const handleSubmit = event => {
     event.preventDefault();
 
@@ -27,19 +25,19 @@ const ContactForm = () => {
       contact => contact.name.toLowerCase().trim() === name.toLowerCase().trim()
     );
 
-    // Проверяет, существует ли контакт с таким же именем в списке контактов. Если контакт уже существует, выводится предупреждение.
+    // Перевіряє, чи існує контакт із таким самим ім'ям у списку контактів. Якщо контакт вже існує, виводиться попередження.
     if (isInContacts) {
       alert(`${name} is already in contacts`);
       return;
     }
 
-    // Вызов функции onSubmit из родительского компонента с передачей объекта контакта.
+    // Виклик функції onSubmit із батьківського компонента з передачею об'єкта контакту.
     dispatch(addContacts({ name, number }));
     setName('');
     setNumber('');
   };
 
-  // Обработка изменения значений полей формы.
+  // Обробка зміни значень полів форми.
   const handleChange = event => {
     const { name, value } = event.target;
 
