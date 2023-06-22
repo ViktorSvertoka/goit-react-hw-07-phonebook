@@ -1,20 +1,19 @@
-// Импорт функции createSelector из библиотеки '@reduxjs/toolkit'
 import { createSelector } from '@reduxjs/toolkit';
 
-// Функция selectIsLoading принимает объект состояния (state) и возвращает значение свойства isLoading из объекта состояния contacts.
+// Функція selectIsLoading приймає об'єкт стану state і повертає значення властивості isLoading з об'єкта стану contacts.
 export const selectIsLoading = state => state.contacts.isLoading;
 
-// Функция selectError принимает объект состояния (state) и возвращает значение свойства error из объекта состояния contacts.
+// Функція selectError приймає об'єкт стану state і повертає значення якості error з об'єкта стану contacts.
 export const selectError = state => state.contacts.error;
 
-// Функция selectContacts принимает объект состояния (state) и возвращает значение свойства items из объекта состояния contacts.
+// Функція selectContacts приймає об'єкт стану state і повертає значення властивості items з об'єкта стану contacts.
 export const selectContacts = state => state.contacts.items;
 
-// Функция selectFilter принимает объект состояния (state) и возвращает значение свойства filter из объекта состояния.
+// Функція selectFilter приймає об'єкт стану state та повертає значення властивості filter з об'єкта стану.
 export const selectFilter = state => state.filter;
 
-// Функция selectVisibleContacts использует функцию createSelector для создания селектора, который зависит от двух других селекторов: selectContacts и selectFilter.
-// Селектор selectVisibleContacts возвращает отфильтрованный массив контактов, где имя контакта (contact.name) содержит строку фильтра (filter).
+// Функція selectVisibleContacts використовує функцію createSelector для створення селектора, який залежить від двох інших селекторів: selectContacts і selectFilter.
+// Селектор selectVisibleContacts повертає відфільтрований масив контактів, де ім'я контакту contact.name містить рядок фільтра filter.
 export const selectVisibleContacts = createSelector(
   [selectContacts, selectFilter],
   (contacts, filter) => {
