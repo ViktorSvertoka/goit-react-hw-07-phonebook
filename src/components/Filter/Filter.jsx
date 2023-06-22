@@ -1,14 +1,14 @@
 import { Div, Label, Input } from './Filter.styled';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectFilter } from 'redux/selectors'; // Импорт селектора selectFilter из файла 'redux/selectors'
-import { changeFilter } from 'redux/filterSlice'; // Импорт действия changeFilter из файла 'redux/filterSlice'
+import { selectFilter } from 'redux/selectors';
+import { changeFilter } from 'redux/filterSlice';
 
-// Компонент фильтрации контактов
+// Компонент фільтрації контактів
 const Filter = () => {
   const value = useSelector(selectFilter);
   const dispatch = useDispatch();
 
-  // Обработчик изменения значения фильтра
+  // Обробник зміни значення фільтра
   const onChange = event => {
     const normalizedValue = event.target.value.toLowerCase();
 
