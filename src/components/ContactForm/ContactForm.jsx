@@ -1,11 +1,12 @@
+// Импорт необходимых зависимостей из библиотеки 'react' и других модулей
 import { useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 import { Form, Label, Button, Input } from './ContactForm.styled';
 import { ReactComponent as AddIcon } from '../icons/add.svg';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getVisibleContacts } from 'redux/selectors';
-import { addContact } from 'redux/contactsSlice';
+import { selectContacts } from 'redux/selectors'; // Импорт селектора selectContacts из файла 'redux/selectors'
+import { addContacts } from '../../redux/operations'; // Импорт асинхронного Thunk-действия addContacts из файла '../../redux/operations'
 
 // Генерация уникальных идентификаторов для полей формы.
 const nameInputId = nanoid();
@@ -15,7 +16,7 @@ const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const contacts = useSelector(getVisibleContacts);
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   // Обработка отправки формы.
@@ -33,7 +34,7 @@ const ContactForm = () => {
     }
 
     // Вызов функции onSubmit из родительского компонента с передачей объекта контакта.
-    dispatch(addContact({ name, number }));
+    dispatch(addContacts({ name, number }));
     setName('');
     setNumber('');
   };

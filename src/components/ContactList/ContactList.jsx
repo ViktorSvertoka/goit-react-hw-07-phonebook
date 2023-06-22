@@ -3,14 +3,13 @@ import { List, Item, Button } from './ContactList.styled';
 import { ReactComponent as DeleteIcon } from '../icons/delete.svg';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getVisibleContacts } from 'redux/selectors';
-import { removeContact } from 'redux/contactsSlice';
+import { selectVisibleContacts } from 'redux/selectors'; // Импорт селектора selectVisibleContacts из файла 'redux/selectors'
+import { deleteContacts } from '../../redux/operations'; // Импорт асинхронного Thunk-действия deleteContacts из файла '../../redux/operations'
 
 // Компонент списка контактов
 const ContactList = () => {
-  const contacts = useSelector(getVisibleContacts);
+  const contacts = useSelector(selectVisibleContacts);
   const dispatch = useDispatch();
-  const handleDelete = () => dispatch(removeContact());
   return (
     <List>
       {contacts.map(contact => (
@@ -18,7 +17,11 @@ const ContactList = () => {
           {contact.name + ' : ' + contact.number}
           {
             // Кнопка удаления контакта
-            <Button type="button" name="delete" onClick={handleDelete}>
+            <Button
+              type="button"
+              name="delete"
+              onClick={() => dispatch(deleteContacts(contact.id))}
+            >
               <DeleteIcon fill="#000000" width="20" height="20" />
               delete
             </Button>

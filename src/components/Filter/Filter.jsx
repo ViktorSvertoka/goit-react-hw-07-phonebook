@@ -1,16 +1,11 @@
-import React from 'react';
 import { Div, Label, Input } from './Filter.styled';
-
-import { nanoid } from '@reduxjs/toolkit';
 import { useSelector, useDispatch } from 'react-redux';
-import { getFilter } from 'redux/selectors';
-import { changeFilter } from 'redux/filterSlice';
-
-const filterInputId = nanoid();
+import { selectFilter } from 'redux/selectors'; // Импорт селектора selectFilter из файла 'redux/selectors'
+import { changeFilter } from 'redux/filterSlice'; // Импорт действия changeFilter из файла 'redux/filterSlice'
 
 // Компонент фильтрации контактов
 const Filter = () => {
-  const value = useSelector(getFilter);
+  const value = useSelector(selectFilter);
   const dispatch = useDispatch();
 
   // Обработчик изменения значения фильтра
@@ -24,12 +19,7 @@ const Filter = () => {
     <Div>
       <Label>
         Find contacts by name
-        <Input
-          type="text"
-          value={value}
-          onChange={onChange}
-          id={filterInputId}
-        />
+        <Input type="text" value={value} onChange={onChange} />
       </Label>
     </Div>
   );

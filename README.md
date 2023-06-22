@@ -52,3 +52,5 @@ npm i @reduxjs/toolkit
 npm install redux
 
 npm install @redux-devtools/extension
+
+npm i axios

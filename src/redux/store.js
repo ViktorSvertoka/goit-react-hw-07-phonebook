@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import {
-  persistStore,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -26,6 +25,3 @@ export const store = configureStore({
       },
     }),
 });
-
-// Создание персистентного хранилища, которое сохраняет состояние хранилища Redux при перезагрузке страницы
-export const persistor = persistStore(store);
