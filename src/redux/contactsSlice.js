@@ -3,10 +3,14 @@ import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { fetchContacts, addContacts, deleteContacts } from './operations';
 
 // Визначення масиву extraActions, що містить асинхронні Thunk-дії
-const extraActions = [fetchContacts, addContacts, deleteContacts];
+// const extraActions = [fetchContacts, addContacts, deleteContacts];
 
 // Визначення функції getActions, яка повертає умову isAnyOf для зазначеного типу дії
-const getActions = type => isAnyOf(...extraActions.map(action => action[type]));
+// const getActions = type => isAnyOf(...extraActions.map(action => action[type]));
+
+// Визначення функції getActions, яка повертає умову isAnyOf для зазначеного типу дії
+const getActions = type =>
+  isAnyOf(fetchContacts[type], addContacts[type], deleteContacts[type]);
 
 // Початковий стан для slice contactsSlice
 const initialState = { items: [], isLoading: false, error: null };
